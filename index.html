@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TM Trips — Philadelphia · MOR Wealth Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0c0b09;
+      --bg-warm: #111009;
+      --surface: rgba(245,240,232,0.04);
+      --surface-hover: rgba(245,240,232,0.07);
+      --border: rgba(245,240,232,0.08);
+      --border-hover: rgba(245,240,232,0.16);
+      --cream: #f5f0e8;
+      --cream-dim: rgba(245,240,232,0.55);
+      --cream-glow: rgba(245,240,232,0.06);
+      --gold: #c9a84c;
+      --gold-glow: rgba(201,168,76,0.13);
+      --sage: #8aab8e;
+      --sage-glow: rgba(138,171,142,0.10);
+      --rust: #b5644a;
+      --rust-glow: rgba(181,100,74,0.12);
+      --slate: #6b7fa3;
+      --slate-glow: rgba(107,127,163,0.12);
+      --text: #f5f0e8;
+      --muted: #9a9588;
+      --dim: #524e47;
+      --radius: 4px;
+      --radius-sm: 2px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.light {
+      --bg: #f5f0e8;
+      --bg-warm: #ede8df;
+      --surface: rgba(12,11,9,0.04);
+      --surface-hover: rgba(12,11,9,0.07);
+      --border: rgba(12,11,9,0.09);
+      --border-hover: rgba(12,11,9,0.16);
+      --cream: #0c0b09;
+      --cream-dim: rgba(12,11,9,0.55);
+      --cream-glow: rgba(12,11,9,0.04);
+      --text: #0c0b09;
+      --muted: #6b6560;
+      --dim: #b0aa9e;
+    }
+
+    .orb {
+      position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+      filter: blur(160px); opacity: 0.14;
+    }
+    .orb-gold { width: 700px; height: 700px; top: -200px; right: -200px; background: radial-gradient(circle, #c9a84c, transparent 70%); }
+    .orb-sage { width: 500px; height: 500px; bottom: -100px; left: -100px; background: radial-gradient(circle, #8aab8e, transparent 70%); }
+
+    .container { max-width: 980px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 420px; display: flex; align-items: flex-end;
+      overflow: hidden; margin-bottom: 0;
+      background: linear-gradient(135deg, #1a1409 0%, #0c0b09 40%, #0d1118 100%);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(to top, rgba(12,11,9,0.95) 0%, rgba(12,11,9,0.4) 50%, rgba(12,11,9,0.2) 100%);
+    }
+    body.light .hero { background: linear-gradient(135deg, #d4c9a8 0%, #e8e0cc 40%, #c8d4e0 100%); }
+    body.light .hero::before { background: linear-gradient(to top, rgba(245,240,232,0.95) 0%, rgba(245,240,232,0.4) 50%, transparent 100%); }
+
+    .hero-plane {
+      position: absolute; top: 40px; right: 80px; z-index: 1; opacity: 0.5;
+    }
+    .hero-content { position: relative; z-index: 2; padding: 64px 0 56px; width: 100%; }
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 3px; color: var(--muted);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 7vw, 72px);
+      font-weight: 300; font-style: italic; color: var(--cream);
+      letter-spacing: -1px; line-height: 1.05; margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400;
+      color: var(--muted); display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .hero-sub span { display: flex; align-items: center; gap: 6px; }
+    .tag {
+      font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px; padding: 3px 9px;
+      border-radius: var(--radius);
+    }
+    .tag-business { color: var(--slate); background: var(--slate-glow); border: 1px solid rgba(107,127,163,0.2); }
+    .tag-gold { color: var(--gold); background: var(--gold-glow); border: 1px solid rgba(201,168,76,0.2); }
+    .tag-sage { color: var(--sage); background: var(--sage-glow); border: 1px solid rgba(138,171,142,0.2); }
+    .tag-rust { color: var(--rust); background: var(--rust-glow); border: 1px solid rgba(181,100,74,0.2); }
+    .tag-muted { color: var(--muted); background: rgba(245,240,232,0.05); border: 1px solid var(--border); }
+    .tag-cream { color: var(--cream); background: var(--cream-glow); border: 1px solid var(--border); }
+
+    /* THEME TOGGLE */
+    .theme-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 100;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 8px 14px;
+      color: var(--muted); font-family: 'DM Sans', sans-serif;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+      cursor: pointer; transition: all 0.2s; backdrop-filter: blur(8px);
+    }
+    .theme-btn:hover { color: var(--cream); border-color: var(--border-hover); }
+
+    /* CARD */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2), inset 0 1px 0 rgba(245,240,232,0.03);
+      transition: all 0.2s;
+    }
+    .card:hover { background: var(--surface-hover); border-color: var(--border-hover); transform: translateY(-1px); box-shadow: 0 8px 32px rgba(0,0,0,0.28); }
+    .card-pad { padding: 24px; }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400;
+      color: var(--cream); margin-bottom: 4px;
+    }
+    .card-label {
+      font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 3px; color: var(--muted); margin-bottom: 16px;
+    }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    /* SECTION */
+    .section { padding: 48px 0; }
+    .section-label {
+      font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 3px; color: var(--dim);
+      margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .stat { padding: 28px 24px; text-align: center; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+    .stat-lbl { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--muted); }
+
+    /* ROUTE MAP */
+    .route-map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); margin-top: 16px; }
+    .route-legend { display: flex; gap: 24px; padding: 14px 20px; border-top: 1px solid var(--border); }
+    .route-legend-item { display: flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* CLIENT BANNER */
+    .client-banner {
+      background: linear-gradient(135deg, rgba(107,127,163,0.08) 0%, rgba(201,168,76,0.05) 100%);
+      border: 1px solid rgba(107,127,163,0.15); border-radius: var(--radius);
+      padding: 32px; position: relative; overflow: hidden;
+    }
+    .client-banner::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+      background: linear-gradient(to bottom, var(--slate), var(--gold));
+    }
+    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; font-style: italic; color: var(--cream); margin-bottom: 8px; }
+    .client-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px; }
+    .client-meta-item label { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--dim); display: block; margin-bottom: 4px; }
+    .client-meta-item span { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); }
+
+    /* CREW */
+    .crew-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .crew-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+    .crew-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 400; color: var(--cream); margin-bottom: 4px; }
+    .crew-role { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+
+    /* HOTEL */
+    .hotel-card { display: flex; align-items: flex-start; gap: 20px; padding: 24px; }
+    .hotel-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+    .hotel-body { flex: 1; }
+    .hotel-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--cream); margin-bottom: 4px; }
+    .hotel-addr { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+    .hotel-details { display: flex; gap: 20px; flex-wrap: wrap; }
+    .hotel-detail label { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--dim); display: block; margin-bottom: 3px; }
+    .hotel-detail span { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--cream); }
+
+    /* DAY SELECTOR */
+    .day-selector { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; margin-bottom: 16px; }
+    .day-selector::-webkit-scrollbar { display: none; }
+    .day-btn {
+      flex-shrink: 0; min-width: 90px; padding: 12px 16px; text-align: center;
+      background: transparent; border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--muted); cursor: pointer; transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .day-btn:hover { border-color: var(--border-hover); color: var(--cream); }
+    .day-btn.active { background: rgba(201,168,76,0.06); border-color: var(--gold); color: var(--cream); }
+    .day-btn-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+    .day-btn-date { font-size: 12px; font-weight: 500; }
+    .day-btn-sub { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px; opacity: 0.6; }
+    .day-btn.shoot .day-btn-sub { color: var(--gold); opacity: 1; }
+    .day-btn.shoot.active { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    .day-content { display: none; }
+    .day-content.active { display: block; }
+    .day-heading { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 300; font-style: italic; color: var(--cream); margin-bottom: 6px; }
+    .day-subtitle { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); margin-bottom: 24px; }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item { display: flex; gap: 20px; padding: 14px 0; border-bottom: 1px solid rgba(245,240,232,0.04); align-items: flex-start; }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-time { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--gold); min-width: 52px; padding-top: 1px; flex-shrink: 0; }
+    .timeline-body { flex: 1; }
+    .timeline-title { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; color: var(--cream); margin-bottom: 2px; }
+    .timeline-desc { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .timeline-item.meeting .timeline-time { color: var(--slate); }
+    .timeline-item.shoot .timeline-time { color: var(--gold); }
+    .timeline-item.drive .timeline-time { color: var(--sage); }
+
+    /* INTERVIEW QUESTIONS */
+    .iq-section { margin-bottom: 24px; }
+    .iq-track { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--slate); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .iq-track.gold-track { color: var(--gold); }
+    .iq-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .iq-list li { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); line-height: 1.55; padding-left: 16px; position: relative; }
+    .iq-list li::before { content: '—'; position: absolute; left: 0; color: var(--dim); }
+
+    /* EXPENSE */
+    .expense-table { width: 100%; border-collapse: collapse; }
+    .expense-table th { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--dim); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+    .expense-table td { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); padding: 11px 12px; border-bottom: 1px solid rgba(245,240,232,0.03); }
+    .expense-table tr:last-child td { border-bottom: none; }
+    .expense-table .amount { font-family: ui-monospace, Menlo, monospace; font-size: 12px; text-align: right; }
+    .expense-table .total-row td { color: var(--cream); font-weight: 500; border-top: 1px solid var(--border); padding-top: 14px; }
+    .expense-table .total-row .amount { color: var(--gold); font-size: 13px; }
+    .reimburse-yes { color: var(--sage); }
+    .reimburse-co { color: var(--slate); }
+
+    /* CHECKLIST */
+    .check-group { margin-bottom: 24px; }
+    .check-group-title { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--muted); margin-bottom: 12px; }
+    .check-item { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(245,240,232,0.04); cursor: pointer; transition: opacity 0.2s; user-select: none; }
+    .check-item:last-child { border-bottom: none; }
+    .check-item.done { opacity: 0.35; }
+    .check-item.done .check-text { text-decoration: line-through; }
+    .check-box { width: 15px; height: 15px; border-radius: 2px; border: 1.5px solid var(--dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .check-item.done .check-box { background: var(--gold); border-color: var(--gold); }
+    .check-text { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--muted); }
+    .check-progress { margin-bottom: 16px; }
+    .check-progress-bar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; margin-bottom: 6px; }
+    .check-progress-fill { height: 100%; background: var(--gold); border-radius: 1px; transition: width 0.3s; }
+    .check-progress-label { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+
+    /* NOTION FOOTER */
+    .notion-footer { border-top: 1px solid var(--border); margin-top: 48px; padding: 24px 0 40px; display: flex; align-items: center; justify-content: space-between; }
+    .notion-footer-left { display: flex; align-items: center; gap: 12px; }
+    .notion-n { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; color: var(--dim); }
+    .notion-text { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--muted); }
+    .notion-link { font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-glow); padding-bottom: 1px; transition: all 0.2s; }
+    .notion-link:hover { color: var(--cream); border-color: var(--cream); }
+    .tm-mark { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-style: italic; color: var(--dim); }
+
+    /* GRID HELPERS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+    .mt-32 { margin-top: 32px; }
+    .gap-16 { gap: 16px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-top: 1px solid var(--border); }
+      .crew-grid { grid-template-columns: 1fr; }
+      .client-meta { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero-title { font-size: 42px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-gold"></div>
+  <div class="orb orb-sage"></div>
+
+  <button class="theme-btn" onclick="toggleTheme()">◐ Theme</button>
+
+  <!-- HERO -->
+  <div class="hero">
+    <svg class="hero-plane" width="160" height="60" viewBox="0 0 160 60">
+      <defs>
+        <linearGradient id="trailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#c9a84c" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.6"/>
+        </linearGradient>
+      </defs>
+      <path d="M 0,30 Q 80,10 140,28" fill="none" stroke="url(#trailGrad)" stroke-width="1.5" stroke-dasharray="300" stroke-dashoffset="300">
+        <animate attributeName="stroke-dashoffset" from="300" to="0" dur="12s" ease="ease-in-out" repeatCount="indefinite"/>
+      </path>
+      <text x="138" y="32" font-size="16" fill="rgba(201,168,76,0.7)">🚗</text>
+    </svg>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="tag tag-business">Business</span>
+          Tribal Mischief · April 2026
+        </div>
+        <div class="hero-title">Philadelphia</div>
+        <div class="hero-sub">
+          <span>📍 100 E Penn Square, Suite 400</span>
+          <span>📅 Apr 27 – 29, 2026</span>
+          <span>👥 3 Crew</span>
+          <span class="tag tag-gold">MOR Wealth Management</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- STATS -->
+    <div class="section" style="padding-top: 40px;">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num" style="color: var(--gold);">3</div>
+          <div class="stat-lbl">Days</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" style="color: var(--cream);">3</div>
+          <div class="stat-lbl">Crew</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" style="color: var(--slate);">2</div>
+          <div class="stat-lbl">Shoot Days</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" style="color: var(--sage);">~340</div>
+          <div class="stat-lbl">Miles Each Way</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT BANNER -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Client</div>
+      <div class="client-banner">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:16px;">
+          <div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:3px; color:var(--slate); margin-bottom:8px;">MOR Wealth Management</div>
+            <div class="client-name">Interviews & Quarterly Review</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:12px; color:var(--muted); margin-top:6px; max-width:520px; line-height:1.6;">B-Corp certified wealth management firm. Triple Bottom Line: People, Planet, Profit. Two deliverables: staff interviews for the new website and a quarterly review video covering state of economy, firm updates, new hires, and the new site launch.</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <span class="tag tag-business">B-Corp Certified</span>
+            <span class="tag tag-sage">ESG · SRI</span>
+            <span class="tag tag-muted">Deadline: May 31</span>
+          </div>
+        </div>
+        <div class="client-meta">
+          <div class="client-meta-item">
+            <label>Location</label>
+            <span>100 E Penn Square, Suite 400<br>Philadelphia, PA 19107</span>
+          </div>
+          <div class="client-meta-item">
+            <label>Key Subjects</label>
+            <span>Matthew Ramer · Amy<br>Client-facing team · 2 new hires</span>
+          </div>
+          <div class="client-meta-item">
+            <label>Tech Requirements</label>
+            <span>Teleprompter · Outline<br>2 recording spaces</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUTE MAP -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Route</div>
+      <div class="route-map">
+        <svg viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <rect width="900" height="180" fill="#111009"/>
+          <defs>
+            <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+              <circle r="0.7" cx="14" cy="14" fill="rgba(245,240,232,0.03)"/>
+            </pattern>
+            <linearGradient id="roadGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.2"/>
+              <stop offset="60%" stop-color="#c9a84c" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#8aab8e" stop-opacity="0.8"/>
+            </linearGradient>
+          </defs>
+          <rect width="900" height="180" fill="url(#dots)"/>
+          <!-- US East Coast rough outline suggestion -->
+          <path d="M 120,40 Q 200,90 280,100 Q 380,110 480,120 Q 580,130 680,115 Q 760,105 800,130" fill="none" stroke="rgba(245,240,232,0.03)" stroke-width="40"/>
+          <!-- Route: Newbury MA (x=160, y=55) to Philadelphia PA (x=740, y=130) -->
+          <path d="M 160,55 C 260,60 340,80 450,105 C 560,130 640,135 740,130"
+                fill="none" stroke="url(#roadGrad)" stroke-width="2"
+                stroke-dasharray="7,4">
+            <animate attributeName="stroke-dashoffset" from="110" to="0" dur="5s" repeatCount="indefinite"/>
+          </path>
+          <!-- Newbury dot (pulsing) -->
+          <circle cx="160" cy="55" r="5" fill="#f5f0e8" opacity="0.7">
+            <animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0.3;0.7" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Philadelphia dot -->
+          <circle cx="740" cy="130" r="5" fill="#c9a84c"/>
+          <circle cx="740" cy="130" r="10" fill="none" stroke="#c9a84c" stroke-width="1" opacity="0.3"/>
+          <!-- Labels -->
+          <text x="160" y="42" text-anchor="middle" font-family="DM Sans" font-size="9" font-weight="700" letter-spacing="2" fill="rgba(245,240,232,0.5)">NEWBURY</text>
+          <text x="160" y="52" text-anchor="middle" font-family="DM Sans" font-size="8" fill="rgba(245,240,232,0.3)">MA</text>
+          <text x="740" y="118" text-anchor="middle" font-family="DM Sans" font-size="9" font-weight="700" letter-spacing="2" fill="rgba(201,168,76,0.8)">PHILADELPHIA</text>
+          <text x="740" y="128" text-anchor="middle" font-family="DM Sans" font-size="8" fill="rgba(201,168,76,0.5)">PA</text>
+          <!-- Midpoint label -->
+          <text x="450" y="96" text-anchor="middle" font-family="DM Sans" font-size="8" fill="rgba(245,240,232,0.2)" letter-spacing="1">~5.5 HRS · I-95 S</text>
+        </svg>
+        <div class="route-legend">
+          <div class="route-legend-item"><div class="legend-dot" style="background:rgba(245,240,232,0.6);"></div>23 Hanover St, Newbury MA</div>
+          <div class="route-legend-item"><div class="legend-dot" style="background:#c9a84c;"></div>100 E Penn Square, Philadelphia PA</div>
+          <div class="route-legend-item" style="margin-left:auto;"><div class="legend-dot" style="background:var(--sage);"></div>~340 miles · I-95 South</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREW -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Crew</div>
+      <div class="crew-grid">
+        <div class="crew-card">
+          <div class="crew-name">Ethan Baird</div>
+          <div class="crew-role">Event Producer</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--dim); margin-top:8px;">23 Hanover St, Newbury MA<br>Departure point</div>
+        </div>
+        <div class="crew-card">
+          <div class="crew-name">Sean McCarthy</div>
+          <div class="crew-role">Interviewer</div>
+        </div>
+        <div class="crew-card">
+          <div class="crew-name">Aiden Lewis</div>
+          <div class="crew-role">Producer · Editor</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTEL -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Accommodation</div>
+      <div class="card">
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div class="hotel-body">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+              <div>
+                <div class="hotel-name">Hampton Inn Philadelphia Center City</div>
+                <div class="hotel-addr">1301 Race St, Philadelphia, PA 19107 · ~12 min walk to MOR</div>
+              </div>
+              <span class="tag tag-gold">Confirmed</span>
+            </div>
+            <div class="hotel-details mt-16">
+              <div class="hotel-detail">
+                <label>Check-In</label>
+                <span>Mon Apr 27</span>
+              </div>
+              <div class="hotel-detail">
+                <label>Check-Out</label>
+                <span>Wed Apr 29</span>
+              </div>
+              <div class="hotel-detail">
+                <label>Nights</label>
+                <span>2 nights</span>
+              </div>
+              <div class="hotel-detail">
+                <label>Booking Ref</label>
+                <span>ZO-AX1043-38601</span>
+              </div>
+              <div class="hotel-detail">
+                <label>Card</label>
+                <span>AmEx ···1008</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRE-TRIP CHECKLIST -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Before You Leave</div>
+      <div class="card card-pad">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div class="card-title">Pre-Trip Checklist</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--muted); margin-top:4px;">Everything to confirm and pack before leaving Newbury — Monday Apr 27</div>
+          </div>
+          <div id="pre-overall-label" style="font-family:'DM Sans',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--muted);"></div>
+        </div>
+        <div class="check-progress">
+          <div class="check-progress-bar"><div class="check-progress-fill" id="pre-bar" style="width:0%"></div></div>
+          <div class="check-progress-label" id="pre-count">0 / 19 complete</div>
+        </div>
+
+        <div class="grid-2" style="margin-top:20px;">
+
+          <div>
+            <div class="check-group">
+              <div class="check-group-title">Logistics — Confirmed</div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Hotel booked — Hampton Inn, ref ZO-AX1043-38601</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">MOR office access confirmed for Monday load-in</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Full shoot schedule confirmed with MOR team</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Company card authorised for trip</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Apr 28 dinner reservation confirmed (Matt, Amy, Stephanie)</div></div>
+            </div>
+
+            <div class="check-group">
+              <div class="check-group-title">Still Needed from MOR</div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Teleprompter scripts — quarterly review outline from MOR</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Final interview subject order + timing</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Office building contact + any access instructions</div></div>
+            </div>
+
+            <div class="check-group">
+              <div class="check-group-title">Crew + Content</div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Interview questions shared with Sean McCarthy</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Quarterly review outline written + ready to load to prompter</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Shoot order + day plan shared with all crew</div></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="check-group">
+              <div class="check-group-title">Equipment — Camera + Support</div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Camera bodies packed — Space A + Space B</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Lenses packed — both setups</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Tripods + heads — both setups</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Lighting rigs — Space A (Matt's Office) + Space B (Main Space)</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Teleprompter unit + controller</div></div>
+            </div>
+
+            <div class="check-group">
+              <div class="check-group-title">Equipment — Audio + Power + Media</div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Lavs, boom, audio recorder/mixer</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Memory cards — formatted + cleared</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Backup drives (2× minimum)</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">All batteries charged — cameras, lights, mics, prompter</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'pre')"><div class="check-box"></div><div class="check-text">Power strips, extension cables, gaff tape, grip kit</div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY SELECTOR -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Schedule</div>
+
+      <div class="day-selector">
+        <button class="day-btn active" onclick="switchDay(0, this)">
+          <div class="day-btn-label">Day 1</div>
+          <div class="day-btn-date">Mon Apr 27</div>
+          <div class="day-btn-sub">Drive + Setup</div>
+        </button>
+        <button class="day-btn shoot" onclick="switchDay(1, this)">
+          <div class="day-btn-label">Day 2</div>
+          <div class="day-btn-date">Tue Apr 28</div>
+          <div class="day-btn-sub">Shoot Day ★</div>
+        </button>
+        <button class="day-btn" onclick="switchDay(2, this)">
+          <div class="day-btn-label">Day 3</div>
+          <div class="day-btn-date">Wed Apr 29</div>
+          <div class="day-btn-sub">Return</div>
+        </button>
+      </div>
+
+      <div class="card card-pad">
+
+        <!-- DAY 1 -->
+        <div class="day-content active" id="day-0">
+          <div class="day-heading">Drive + Setup</div>
+          <div class="day-subtitle">Monday, April 27 · Newbury MA → Philadelphia PA → MOR Office</div>
+          <div class="timeline">
+            <div class="timeline-item drive">
+              <div class="timeline-time">08:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Depart Newbury</div>
+                <div class="timeline-desc">23 Hanover St, Newbury MA 01951 · Full crew assembled · All gear loaded</div>
+              </div>
+            </div>
+            <div class="timeline-item drive">
+              <div class="timeline-time">~09:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Rest Stop — Providence, RI area</div>
+                <div class="timeline-desc">Coffee + fuel · I-95 South corridor</div>
+              </div>
+            </div>
+            <div class="timeline-item drive">
+              <div class="timeline-time">~11:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Lunch Stop — New Haven or New York area</div>
+                <div class="timeline-desc">~halfway mark · ~3.5 hrs in</div>
+              </div>
+            </div>
+            <div class="timeline-item drive">
+              <div class="timeline-time">~14:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Arrive Philadelphia</div>
+                <div class="timeline-desc">~5.5–6 hrs drive · Allow for traffic on I-95 through NYC</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">~14:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Check In — Hotel</div>
+                <div class="timeline-desc">Center City · Company card · Drop personal bags · Head straight to MOR</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">~15:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Load-In — MOR Office</div>
+                <div class="timeline-desc">100 E Penn Square, Suite 400 · Full gear load-in · Confirm building access</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">~16:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Space A Setup — Matt's Office</div>
+                <div class="timeline-desc">Single-camera talking head config · Lighting, audio, camera position · Desk/chair staging</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">~17:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Space B Setup — Main Space</div>
+                <div class="timeline-desc">Multi-camera interview config · Second lighting rig · Acoustics check</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">~18:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Teleprompter Config + Camera Tests</div>
+                <div class="timeline-desc">Load quarterly review outline · Test scroll speed · White balance, exposure, mic placement · Playback review</div>
+              </div>
+            </div>
+            <div class="timeline-item meeting">
+              <div class="timeline-time">~18:45</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Wrap Setup · Secure Gear</div>
+                <div class="timeline-desc">Lock cameras in position · Cover sensitive gear · Confirm access for 08:00 Monday</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">~19:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Team Dinner — Center City</div>
+                <div class="timeline-desc">Debrief setup · Confirm shoot order · Early night — long day Monday</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 2 -->
+        <div class="day-content" id="day-1">
+          <div class="day-heading">Shoot Day</div>
+          <div class="day-subtitle">Tuesday, April 28 · 08:30 – 18:00 · MOR Wealth Management</div>
+          <div class="timeline">
+            <div class="timeline-item shoot">
+              <div class="timeline-time">08:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Arrive + Power Up</div>
+                <div class="timeline-desc">Both spaces live · Final camera checks · Teleprompter loaded · Crew briefing</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">08:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Matthew Ramer — Leadership Interview</div>
+                <div class="timeline-desc">Space A: Matt's Office · Core + leadership questions · B-Corp motivation, transparency, family dynamic, returns vs. values tension · Allow ~45–60 min</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">09:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Amy — Leadership Interview</div>
+                <div class="timeline-desc">Space A or B · "Internal prime minister" framing · Culture, values, staff care, Triple Bottom Line in practice · Allow ~45 min</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">10:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Quarterly Review Recording — Matthew Ramer</div>
+                <div class="timeline-desc">Teleprompter · State of economy · State of firm · New hires mention · New website launch · Satellite topic (Earth Day / current events) · Outline required on prompter</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">12:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Lunch Break</div>
+                <div class="timeline-desc">~1 hour · On-site or nearby · Review morning footage</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">13:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Client-Facing Team — Interviews (2 Spaces Running)</div>
+                <div class="timeline-desc">Both spaces active · ESG/SRI questions · Impact metrics · Simplifying conscious investing · ~20–30 min per subject</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">15:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">New Hires — Introductions</div>
+                <div class="timeline-desc">Short intro pieces for website · Name, role, what brought them to MOR · ~10–15 min each</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">16:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">B-Roll</div>
+                <div class="timeline-desc">Office environment · Team interactions · Workspace · Logo / signage · Culture shots for website</div>
+              </div>
+            </div>
+            <div class="timeline-item shoot">
+              <div class="timeline-time">17:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Pickups + Cutaways</div>
+                <div class="timeline-desc">Any missed angles · Re-dos flagged during day · Cover all deliverable requirements</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">17:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Strike + Full Pack-Out</div>
+                <div class="timeline-desc">Both spaces struck completely · All gear inventoried and packed · Cards backed up before leaving building · MOR office restored</div>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-time">17:45</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Return to Hotel · Freshen Up</div>
+                <div class="timeline-desc">Drop gear · Final card backup · Change before dinner</div>
+              </div>
+            </div>
+            <div class="timeline-item meeting">
+              <div class="timeline-time">18:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Dinner — Matt, Amy & Stephanie</div>
+                <div class="timeline-desc">Client dinner · Philadelphia · Full crew + Matthew Ramer, Amy & Stephanie · Location TBC</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DAY 3 -->
+        <div class="day-content" id="day-2">
+          <div class="day-heading">Return</div>
+          <div class="day-subtitle">Wednesday, April 29 · Philadelphia PA → Newbury MA</div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-time">08:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Check Out — Hotel</div>
+                <div class="timeline-desc">Full gear loaded · Verify all card backups complete · Receipts collected</div>
+              </div>
+            </div>
+            <div class="timeline-item drive">
+              <div class="timeline-time">08:30</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Depart Philadelphia</div>
+                <div class="timeline-desc">I-95 North · ~5.5–6 hrs home · Allow for NJ/NYC morning traffic</div>
+              </div>
+            </div>
+            <div class="timeline-item drive">
+              <div class="timeline-time">~11:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Rest Stop</div>
+                <div class="timeline-desc">New York / New Haven area</div>
+              </div>
+            </div>
+            <div class="timeline-item drive">
+              <div class="timeline-time">~14:00</div>
+              <div class="timeline-body">
+                <div class="timeline-title">Arrive Newbury, MA</div>
+                <div class="timeline-desc">23 Hanover St · Gear unloaded and stored · Trip complete</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- INTERVIEW QUESTIONS -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Interview Questions</div>
+      <div class="grid-2">
+        <div class="card card-pad">
+          <div class="card-label">Core Questions — All Subjects</div>
+          <div class="iq-section">
+            <ul class="iq-list">
+              <li>Why are you in this business?</li>
+              <li>What's your philosophy?</li>
+              <li>What sets you apart?</li>
+              <li>Why do your clients work with you?</li>
+              <li>How does that relationship develop so your business becomes a partner in meeting their goals?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card card-pad">
+          <div class="card-label">Leadership Track — Matt & Amy</div>
+          <div class="iq-section">
+            <ul class="iq-list">
+              <li>Please describe MOR Wealth Management and how it is different.</li>
+              <li>Many firms talk about values, but you became B Corp certified. What motivated you to diverge from traditional wealth management?</li>
+              <li>How does your internal 'family' dynamic change how you handle high-pressure investment decisions or firm-wide growth?</li>
+              <li>How do you navigate the tension between maximizing financial returns and adhering to strict B Corp standards?</li>
+              <li>Wealth management is traditionally a 'black box.' How does your commitment to transparency impact how you communicate with your team and clients?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card card-pad" style="grid-column: 1 / -1;">
+          <div class="card-label">Client-Facing Team Track</div>
+          <div class="iq-section">
+            <ul class="iq-list">
+              <li>When a client comes to you with a traditional portfolio, how do you walk them through aligning their wealth with their personal values without compromising long-term financial security?</li>
+              <li>B Corp status involves rigorous customer stewardship standards. How does this show up in the specific financial products or ESG strategies you recommend?</li>
+              <li>Beyond annual percentage return, what 'impact metrics' do you track? How do you show clients the tangible good their money is doing in the world?</li>
+              <li>Many clients feel overwhelmed by 'conscious' investing. How do you simplify these concepts to empower clients to make informed, mission-aligned decisions?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GEAR CHECKLIST -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Equipment Checklist</div>
+      <div class="card card-pad">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div class="card-title">MOR WM Gear List</div>
+            <div style="font-family:'DM Sans',sans-serif; font-size:11px; color:var(--muted); margin-top:4px;">Full database in Notion · Roles A (Matt's Office) and B (Main Space)</div>
+          </div>
+          <a href="https://www.notion.so/34482d8073a980779306cd8918e12921" target="_blank" class="notion-link">View in Notion →</a>
+        </div>
+        <div class="check-progress">
+          <div class="check-progress-bar"><div class="check-progress-fill" id="gear-bar" style="width:0%"></div></div>
+          <div class="check-progress-label" id="gear-count">0 / 12 packed</div>
+        </div>
+        <div class="grid-2">
+          <div>
+            <div class="check-group">
+              <div class="check-group-title">Camera — Space A (Matt's Office)</div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Primary camera body</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Lens(es)</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Tripod / head</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Lighting rig A</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Lav + boom mic</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Teleprompter unit</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="check-group">
+              <div class="check-group-title">Camera — Space B (Main Space)</div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Second camera body</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Lens(es) B</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Tripod / head B</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Lighting rig B</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Audio recorder / mixer</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'gear')"><div class="check-box"></div><div class="check-text">Memory cards + backup drives</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPENSE TRACKER -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Expenses</div>
+      <div class="card card-pad">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+          <div class="card-title">Cost Tracker</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="tag tag-business">Company Card Primary</span>
+          </div>
+        </div>
+        <table class="expense-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Notes</th>
+              <th style="text-align:right;">Est. Amount</th>
+              <th>Card</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gas — Drive Down</td>
+              <td>~340 mi · Est. 2 fill-ups</td>
+              <td class="amount">TBC</td>
+              <td><span class="reimburse-co">Company</span></td>
+            </tr>
+            <tr>
+              <td>Gas — Drive Back</td>
+              <td>~340 mi · Est. 2 fill-ups</td>
+              <td class="amount">TBC</td>
+              <td><span class="reimburse-co">Company</span></td>
+            </tr>
+            <tr>
+              <td>Hotel — 2 Nights</td>
+              <td>Center City · Apr 27–29</td>
+              <td class="amount">TBC</td>
+              <td><span class="reimburse-co">Company</span></td>
+            </tr>
+            <tr>
+              <td>Meals — 3 crew × 4 days</td>
+              <td>Per diem TBC</td>
+              <td class="amount">TBC</td>
+              <td><span class="reimburse-co">Company</span></td>
+            </tr>
+            <tr>
+              <td>Parking / Tolls</td>
+              <td>I-95 tolls + hotel/shoot parking</td>
+              <td class="amount">TBC</td>
+              <td><span class="reimburse-co">Company</span></td>
+            </tr>
+            <tr>
+              <td>Incidentals</td>
+              <td>Props, supplies, unexpected needs</td>
+              <td class="amount">TBC</td>
+              <td><span class="reimburse-co">Company</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="2"><strong>Total Estimated</strong></td>
+              <td class="amount"><strong>TBC</strong></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+        <div style="margin-top:14px; padding:12px; background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); font-family:'DM Sans',sans-serif; font-size:11px; color:var(--dim);">Update amounts as bookings are confirmed. Hotel and gas are primary variables.</div>
+      </div>
+    </div>
+
+    <!-- CHECKLISTS -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Checklists</div>
+      <div class="grid-2">
+
+        <div class="card card-pad">
+          <div class="card-title" style="margin-bottom:4px;">Shoot Day</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:10px; color:var(--muted); margin-bottom:16px;">Tuesday morning before rolling</div>
+          <div class="check-progress">
+            <div class="check-progress-bar"><div class="check-progress-fill" id="shoot-bar" style="width:0%"></div></div>
+            <div class="check-progress-label" id="shoot-count">0 / 9 complete</div>
+          </div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Both spaces powered and live</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Teleprompter loaded with QR outline</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Test recordings reviewed — both spaces</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Audio levels confirmed</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">White balance set for both spaces</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Matthew Ramer confirmed for 08:30</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Interview question sheets printed / on device</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Full subject order confirmed with MOR</div></div>
+          <div class="check-item" onclick="toggleCheck(this,'shoot')"><div class="check-box"></div><div class="check-text">Spare batteries and cards accessible</div></div>
+        </div>
+
+        <div class="card card-pad" style="grid-column: 1 / -1;">
+          <div class="card-title" style="margin-bottom:4px;">Wrap + Return</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:10px; color:var(--muted); margin-bottom:16px;">Before leaving Philadelphia Wednesday</div>
+          <div class="check-progress">
+            <div class="check-progress-bar"><div class="check-progress-fill" id="wrap-bar" style="width:0%"></div></div>
+            <div class="check-progress-label" id="wrap-count">0 / 6 complete</div>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0;">
+            <div>
+              <div class="check-item" onclick="toggleCheck(this,'wrap')"><div class="check-box"></div><div class="check-text">All footage backed up to drives (2 copies)</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'wrap')"><div class="check-box"></div><div class="check-text">All gear inventoried and packed</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'wrap')"><div class="check-box"></div><div class="check-text">MOR office left clean — both spaces restored</div></div>
+            </div>
+            <div>
+              <div class="check-item" onclick="toggleCheck(this,'wrap')"><div class="check-box"></div><div class="check-text">Hotel checked out — nothing left behind</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'wrap')"><div class="check-box"></div><div class="check-text">Expense receipts collected / photographed</div></div>
+              <div class="check-item" onclick="toggleCheck(this,'wrap')"><div class="check-box"></div><div class="check-text">Thank-you note / follow-up sent to MOR</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- NOTION FOOTER -->
+    <div class="notion-footer">
+      <div class="notion-footer-left">
+        <div class="notion-n">N</div>
+        <div>
+          <div class="notion-text">Philadelphia Trip · Apr 27–29, 2026</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:9px; color:var(--sage); margin-top:3px; text-transform:uppercase; letter-spacing:1.5px;">Synced · MOR Wealth Management</div>
+        </div>
+      </div>
+      <a href="https://www.notion.so/34582d8073a981779943cfe12f83d62f" target="_blank" class="notion-link">Open in Notion →</a>
+    </div>
+
+    <div style="text-align:center; padding-bottom:32px;">
+      <div class="tm-mark">TM Trips · Tribal Mischief · Philadelphia 2026</div>
+    </div>
+
+  </div><!-- /container -->
+
+  <script>
+    const TRIP_KEY = 'tm-trips-philly-2026';
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      localStorage.setItem(TRIP_KEY + '-theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    }
+
+    function switchDay(index, btn) {
+      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('day-' + index).classList.add('active');
+    }
+
+    function toggleCheck(el, group) {
+      el.classList.toggle('done');
+      const box = el.querySelector('.check-box');
+      if (el.classList.contains('done')) {
+        box.innerHTML = '<svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="#0c0b09" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      } else {
+        box.innerHTML = '';
+      }
+      saveState(group);
+      updateProgress(group);
+    }
+
+    function updateProgress(group) {
+      const containers = {
+        gear: { bar: 'gear-bar', count: 'gear-count' },
+        pre: { bar: 'pre-bar', count: 'pre-count' },
+        shoot: { bar: 'shoot-bar', count: 'shoot-count' },
+        wrap: { bar: 'wrap-bar', count: 'wrap-count' }
+      };
+      // Find all check items for this group by walking the DOM
+      const allItems = document.querySelectorAll('.check-item');
+      const groupItems = [];
+      allItems.forEach(item => {
+        const onclick = item.getAttribute('onclick') || '';
+        if (onclick.includes("'" + group + "'")) groupItems.push(item);
+      });
+      const done = groupItems.filter(i => i.classList.contains('done')).length;
+      const total = groupItems.length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      const ids = containers[group];
+      if (ids) {
+        const bar = document.getElementById(ids.bar);
+        const lbl = document.getElementById(ids.count);
+        if (bar) bar.style.width = pct + '%';
+        if (lbl) lbl.textContent = done + ' / ' + total + ' complete';
+        if (group === 'gear' && lbl) lbl.textContent = done + ' / ' + total + ' packed';
+      }
+    }
+
+    function saveState(group) {
+      const allItems = document.querySelectorAll('.check-item');
+      const state = {};
+      allItems.forEach((item, idx) => {
+        state[idx] = item.classList.contains('done');
+      });
+      localStorage.setItem(TRIP_KEY + '-checks', JSON.stringify(state));
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem(TRIP_KEY + '-checks');
+      if (saved) {
+        const state = JSON.parse(saved);
+        const allItems = document.querySelectorAll('.check-item');
+        allItems.forEach((item, idx) => {
+          if (state[idx]) {
+            item.classList.add('done');
+            const box = item.querySelector('.check-box');
+            if (box) box.innerHTML = '<svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="#0c0b09" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          }
+        });
+      }
+      ['gear','pre','shoot','wrap'].forEach(g => updateProgress(g));
+
+      const theme = localStorage.getItem(TRIP_KEY + '-theme');
+      if (theme === 'light') document.body.classList.add('light');
+    }
+
+    loadState();
+  </script>
+</body>
+</html>
